@@ -31,8 +31,21 @@ streamlit run app.py
 python -m pytest             # run the tests
 ```
 
-## Live demo
-<paste your Streamlit Community Cloud link here>
-
 ## Screenshot
-<add screenshot.png here>
+## Screenshots
+
+### Overview
+![Overview](screenshots/overview.png)
+
+### Trends
+![Trends](screenshots/trends.png)
+
+### Products
+![Products](screenshots/products.png)
+
+### Filtered view (West + Technology)
+![Filtered](screenshots/filtered.png)
+
+### Tests passing
+![Tests](screenshots/tests.png)
+
