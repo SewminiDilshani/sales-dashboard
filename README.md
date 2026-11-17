@@ -1,34 +1,20 @@
-# Superstore Sales Dashboard (Project 32)
+# 📊 Superstore Sales Dashboard
 
-## Problem
-Which categories, regions and months drive sales, and is the business growing?
+An interactive Streamlit dashboard that shows what drives sales in the Superstore dataset.
+Built as **Self-learning Project 32** (Data Science).
 
-## Data
-Superstore sales, 9,800 order lines, Jan 2015 – Dec 2018 (`superstore.csv`).
-Columns used: order/ship date, region, state, segment, category, sub-category, product, customer, sales.
+**Question:** Which categories, regions and months drive sales, and is the business growing?
 
-## Method
-1. **Cleaning** (`data.py`): read as UTF-8, parse dates (`dd/mm/yyyy`), drop 1 duplicated order line, fill 11 missing postal codes (Burlington, Vermont = 05401).
-2. **Dashboard** (`app.py`, Streamlit + Plotly): sidebar filters (date range, region, category, segment), 4 KPI cards, one key-message box, and tabs for Overview, Trends, Products and Data (CSV download).
-3. **Tests** (`tests/test_data.py`): pytest checks for cleaning, filtering and KPI maths.
+## Key findings
 
-## Baseline
-Before building the dashboard, the baseline was a single static summary of
-total sales, orders and customers with no filters. The dashboard improves on
-it by letting the user slice sales by date, region, category and segment,
-and by adding a key insight message and a year-over-year trend view.
-
-## Data quality checks and findings
-- File encoding: reading as latin-1 corrupted 361 rows (e.g. "Â" in product names); fixed by reading as UTF-8.
-- 1 duplicated order line removed (9,800 -> 9,799 rows).
-- 11 missing postal codes (all Burlington, Vermont) filled with 05401.
-- Dashboard numbers were checked with pytest (7 tests) and against pandas totals.
-- Finding: no profit, quantity or discount columns, so only revenue can be analysed.
-
-## Result (all data, no filters)
-- Total sales about $2.26M from 4,922 orders and 793 customers.
-- Technology is the biggest category (about 37%); West is the top region.
-- Sales peak in November; 2018 is about +20% compared with 2017.
+| Measure | Value (all data) |
+|---|---|
+| Total sales | about $2.26M |
+| Orders / Customers | 4,922 / 793 |
+| Top category | Technology (about 37% of sales) |
+| Top region | West |
+| Peak month | November |
+| Growth | 2018 is about +20% compared with 2017 |
 
 ## Screenshots
 
@@ -42,15 +28,59 @@ and by adding a key insight message and a year-over-year trend view.
 ![Products](screenshots/products.png)
 
 ### Filtered view (West + Technology)
-![Filtered](screenshots/filtered.png)
+![Filtered view](screenshots/filtered.png)
 
-### Tests passing
+### Data table with CSV download
+![Data](screenshots/data.png)
+
+## Features
+- Sidebar filters: date range, region, category, segment
+- 4 KPI cards and an automatic key insight message
+- Overview, Trends, Products and Data tabs
+- Download the filtered data as CSV
+
+## Data
+Superstore sales, 9,800 order lines, Jan 2015 – Dec 2018 (`superstore.csv`).
+Columns used: order and ship date, region, state, segment, category, sub-category, product, customer, sales.
+
+## Method
+1. **Cleaning** (`data.py`): read as UTF-8, parse dates (`dd/mm/yyyy`), remove 1 duplicate order line, fill 11 missing postal codes (Burlington, Vermont = 05401).
+2. **Dashboard** (`app.py`): Streamlit and Plotly.
+3. **Tests** (`tests/test_data.py`): 7 pytest tests for cleaning, filtering and KPI maths.
+
+## Baseline
+The baseline was a single static summary of total sales, orders and customers with no filters.
+The dashboard improves on it with filters, a key insight message and a year-over-year trend view.
+
+## Data quality checks
+
+| Problem found | Fix |
+|---|---|
+| Reading as latin-1 corrupted 361 rows (for example "Â" in product names) | Read the file as UTF-8 |
+| 1 duplicated order line (9,800 to 9,799 rows) | Removed |
+| 11 missing postal codes (all Burlington, Vermont) | Filled with 05401 |
+| No profit, quantity or discount columns | Analyse revenue only |
+
+Dashboard numbers were checked with pytest and against plain pandas totals.
+
 ![Tests](screenshots/tests.png)
 
 ## Limitations
-- No profit, quantity or discount columns, so the dashboard shows revenue, not profitability.
+- No profit, quantity or discount columns, so this shows revenue, not profitability.
 - Data stops at 2018; it is a sample dataset, not live company data.
 - No forecasting; the trends are descriptive only.
+
+## Project structure
+```
+sales-dashboard/
+├── app.py              # Streamlit dashboard
+├── data.py             # loading, cleaning, filtering, KPIs
+├── superstore.csv      # dataset
+├── tests/test_data.py  # pytest tests
+├── screenshots/        # images used in this README
+├── requirements.txt
+└── .streamlit/config.toml
+```
 
 ## How to run
 ```bash
